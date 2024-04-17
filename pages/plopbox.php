@@ -34,6 +34,7 @@ $upload_file_name = NULL;
 $upload_file_ext = NULL;
 
 // Users must be logged in to upload files!
+if (is_user_logged_in()) {
 if (isset($_POST["upload"])) {
 
   $upload_source = trim($_POST["source"]); // untrusted
@@ -106,6 +107,7 @@ if (isset($_POST["upload"])) {
     }
   }
 }
+}
 
 // query the database for the clipart records
 $records = exec_sql_query(
@@ -160,6 +162,8 @@ $records = exec_sql_query(
     <section class="upload">
       <h2>Upload Clipart</h2>
 
+      <?php if (is_user_logged_in()) { ?>
+
       <form action="/plopbox" method="post" enctype="multipart/form-data">
 
         <!-- MAX_FILE_SIZE must precede the file input field -->
@@ -189,6 +193,11 @@ $records = exec_sql_query(
         </div>
 
       </form>
+
+      <?php } else {
+        echo login_form('/', $session_messages);
+      }
+      ?>
     </section>
 
   </main>

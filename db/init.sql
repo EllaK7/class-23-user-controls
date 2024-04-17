@@ -664,3 +664,29 @@ VALUES
     'svg',
     'https://en.wikipedia.org/wiki/Pig'
   );
+
+    --- Users ---
+    CREATE TABLE users (
+      id INTEGER NOT NULL UNIQUE,
+      username TEXT NOT NULL UNIQUE,
+      password TEXT NOT NULL,
+      PRIMARY KEY(id AUTOINCREMENT)
+    );
+
+    INSERT INTO
+      users (id, username, password)
+    VALUES
+      (
+        1,
+        'ellak',
+        '$2y$10$QtCybkpkzh7x5VN11APHned4J8fu78.eFXlyAMmahuAaNcbwZ7FH.' -- monkey
+      );
+
+    --- Sessions ---
+    CREATE TABLE sessions (
+      id INTEGER NOT NULL UNIQUE,
+      user_id INTEGER NOT NULL,
+      session TEXT NOT NULL UNIQUE,
+      last_login TEXT NOT NULL,
+      PRIMARY KEY(id AUTOINCREMENT) FOREIGN KEY(user_id) REFERENCES users(id)
+    );

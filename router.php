@@ -93,6 +93,15 @@ $request_uri = explode("?", $_SERVER["REQUEST_URI"], 2)[0];
 if ($php_file = match_routes($request_uri, ROUTES)) {
   // Include PHP file from route look-up
   require_once "includes/init.php";
+
+  // initialize and open database
+  require_once "includes/db.php";
+  $db = init_sqlite_db("db/site.sqlite", "db/init.sql");
+
+  require_once "includes/sessions.php";
+  $session_messages = array();
+  process_session_params($db, $session_messages);
+
   require $php_file;
 } else if ($file_path = match_static($request_uri)) {
   if ($file_path == $request_uri) {

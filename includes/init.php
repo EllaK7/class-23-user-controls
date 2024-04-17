@@ -8,7 +8,3 @@ $nav_flowershop_class = "";
 $nav_transcript_class = "";
 $nav_reviews_class = "";
 $nav_plopbox_class = "";
-
-// initialize and open database
-require_once "includes/db.php";
-$db = init_sqlite_db("db/site.sqlite", "db/init.sql");
